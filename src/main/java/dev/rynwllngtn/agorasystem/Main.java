@@ -1,4 +1,4 @@
-package dev.rynwllngtn.agorasytem;
+package dev.rynwllngtn.agorasystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
