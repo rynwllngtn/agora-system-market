@@ -3,6 +3,7 @@ package dev.rynwllngtn.agorasystem.services.product;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.product.Product;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ResourceNotFoundException;
 import dev.rynwllngtn.agorasystem.mappers.product.ProductMapper;
 import dev.rynwllngtn.agorasystem.repositories.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,15 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public Product findById(UUID id) {
         Optional<Product> product = productRepository.findById(id);
-        return product.get();
+        return product.orElseThrow(
+                () -> new ResourceNotFoundException(Product.class, id));
     }
 
     @Override
     public ProductResponseDTO getResponseById(UUID id) {
         Optional<ProductResponseDTO> responseDTO = productRepository.getResponseById(id);
-        return responseDTO.get();
+        return responseDTO.orElseThrow(
+                () -> new ResourceNotFoundException(Product.class, id));
     }
 
     @Override

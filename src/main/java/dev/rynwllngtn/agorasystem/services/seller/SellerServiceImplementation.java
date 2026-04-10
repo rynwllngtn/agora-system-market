@@ -3,6 +3,7 @@ package dev.rynwllngtn.agorasystem.services.seller;
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.seller.Seller;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ResourceNotFoundException;
 import dev.rynwllngtn.agorasystem.mappers.seller.SellerMapper;
 import dev.rynwllngtn.agorasystem.repositories.seller.SellerRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,15 @@ public class SellerServiceImplementation implements SellerService {
     @Override
     public Seller findById(UUID id) {
         Optional<Seller> seller = sellerRepository.findById(id);
-        return seller.get();
+        return seller.orElseThrow(
+                () -> new ResourceNotFoundException(Seller.class, id));
     }
 
     @Override
     public SellerResponseDTO getResponseById(UUID id) {
         Optional<SellerResponseDTO> responseDTO = sellerRepository.getResponseById(id);
-        return responseDTO.get();
+        return responseDTO.orElseThrow(
+                () -> new ResourceNotFoundException(Seller.class, id));
     }
 
     @Override

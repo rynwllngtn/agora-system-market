@@ -5,6 +5,7 @@ import dev.rynwllngtn.agorasystem.dtos.listing.ListingResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.listing.Listing;
 import dev.rynwllngtn.agorasystem.entities.product.Product;
 import dev.rynwllngtn.agorasystem.entities.seller.Seller;
+import dev.rynwllngtn.agorasystem.exceptions.database.DatabaseException.ResourceNotFoundException;
 import dev.rynwllngtn.agorasystem.mappers.listing.ListingMapper;
 import dev.rynwllngtn.agorasystem.repositories.listing.ListingRepository;
 import dev.rynwllngtn.agorasystem.services.product.ProductService;
@@ -27,13 +28,15 @@ public class ListingServiceImplementation implements ListingService {
     @Override
     public Listing findById(UUID id) {
         Optional<Listing> listing = listingRepository.findById(id);
-        return listing.get();
+        return listing.orElseThrow(
+                () -> new ResourceNotFoundException(Listing.class, id));
     }
 
     @Override
     public ListingResponseDTO getResponseById(UUID id) {
         Optional<ListingResponseDTO> responseDTO = listingRepository.getResponseById(id);
-        return responseDTO.get();
+        return responseDTO.orElseThrow(
+                () -> new ResourceNotFoundException(Listing.class, id));
     }
 
     @Override
