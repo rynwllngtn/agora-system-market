@@ -1,8 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.product;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +15,18 @@ import java.util.UUID;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
     private UUID id;
+
+    @Column(nullable = false)
     private String name;
+
     private String description;
+
+    public Product(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
 }

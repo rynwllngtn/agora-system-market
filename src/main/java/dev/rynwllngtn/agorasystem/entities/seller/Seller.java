@@ -1,8 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.seller;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +15,19 @@ import java.util.UUID;
 public class Seller {
 
     @Id
-    UUID id;
-    UUID ownerId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID id;
+
+    @Column(name = "owner_id",unique = true ,nullable = false)
+    private UUID ownerId;
+
+    @Column(nullable = false)
+    private String name;
+
+    public Seller(UUID ownerId, String name) {
+        this.ownerId = ownerId;
+        this.name = name;
+    }
 
 }
