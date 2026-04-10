@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface ListingService {
 
     Listing findById(UUID id);
+    ListingResponseDTO getResponseById(UUID id);
 
     ListingResponseDTO insert(ListingCreateRequestDTO createRequestDTO);
 

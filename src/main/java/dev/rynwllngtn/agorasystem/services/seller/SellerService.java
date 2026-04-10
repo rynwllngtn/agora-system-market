@@ -11,7 +11,11 @@ import java.util.UUID;
 public interface SellerService {
 
     Seller findById(UUID id);
+    SellerResponseDTO getResponseById(UUID id);
 
     SellerResponseDTO insert(SellerCreateRequestDTO createRequestDTO);
+
+    SellerResponseDTO deactivate(UUID id);
+    SellerResponseDTO reactivate(UUID id);
 
 }

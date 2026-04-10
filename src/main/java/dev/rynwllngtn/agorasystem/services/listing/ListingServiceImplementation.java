@@ -31,6 +31,12 @@ public class ListingServiceImplementation implements ListingService {
     }
 
     @Override
+    public ListingResponseDTO getResponseById(UUID id) {
+        Optional<ListingResponseDTO> responseDTO = listingRepository.getResponseById(id);
+        return responseDTO.get();
+    }
+
+    @Override
     public ListingResponseDTO insert(ListingCreateRequestDTO createRequestDTO) {
         Seller seller = sellerService.findById(createRequestDTO.sellerId());
         Product product = productService.findById(createRequestDTO.productId());

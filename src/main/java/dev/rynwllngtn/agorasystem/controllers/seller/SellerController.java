@@ -2,10 +2,8 @@ package dev.rynwllngtn.agorasystem.controllers.seller;
 
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerResponseDTO;
-import dev.rynwllngtn.agorasystem.entities.seller.Seller;
 import dev.rynwllngtn.agorasystem.services.seller.SellerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,8 +20,8 @@ public class SellerController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<SellerResponseDTO> findById(@PathVariable UUID id) {
-        Seller seller = sellerService.findById(id);
-        return ResponseEntity.ok().body(new SellerResponseDTO(seller));
+        SellerResponseDTO responseDTO = sellerService.getResponseById(id);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping
@@ -36,6 +34,18 @@ public class SellerController {
                   toUri();
 
         return ResponseEntity.created(uri).body(responseDTO);
+    }
+
+    @PatchMapping(value = "/{id}/deactivate")
+    public ResponseEntity<SellerResponseDTO> deactivate(@PathVariable UUID id) {
+        SellerResponseDTO responseDTO = sellerService.deactivate(id);
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @PatchMapping(value = "/{id}/reactivate")
+    public ResponseEntity<SellerResponseDTO> reactivate(@PathVariable UUID id) {
+        SellerResponseDTO responseDTO = sellerService.reactivate(id);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
 }

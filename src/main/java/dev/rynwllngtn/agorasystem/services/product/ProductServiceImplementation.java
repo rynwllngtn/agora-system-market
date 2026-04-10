@@ -25,6 +25,12 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
+    public ProductResponseDTO getResponseById(UUID id) {
+        Optional<ProductResponseDTO> responseDTO = productRepository.getResponseById(id);
+        return responseDTO.get();
+    }
+
+    @Override
     public ProductResponseDTO insert(ProductCreateRequestDTO createRequestDTO) {
         Product product = productMapper.toEntity(createRequestDTO);
         product = productRepository.save(product);

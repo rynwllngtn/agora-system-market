@@ -2,10 +2,8 @@ package dev.rynwllngtn.agorasystem.controllers.product;
 
 import dev.rynwllngtn.agorasystem.dtos.product.ProductCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductResponseDTO;
-import dev.rynwllngtn.agorasystem.entities.product.Product;
 import dev.rynwllngtn.agorasystem.services.product.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,14 +20,19 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductResponseDTO> findById(@PathVariable UUID id) {
-        Product product = productService.findById(id);
-        return ResponseEntity.ok().body(new ProductResponseDTO(product));
+        ProductResponseDTO responseDTO = productService.getResponseById(id);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> insert(@RequestBody ProductCreateRequestDTO createRequestDTO) {
         ProductResponseDTO responseDTO = productService.insert(createRequestDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(responseDTO.id()).toUri();
+        URI uri = ServletUriComponentsBuilder.
+                  fromCurrentRequest().
+                  path("/{id}").
+                  buildAndExpand(responseDTO.id()).
+                  toUri();
+
         return ResponseEntity.created(uri).body(responseDTO);
     }
 

@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface ProductService {
 
     Product findById(UUID id);
+    ProductResponseDTO getResponseById(UUID id);
 
     ProductResponseDTO insert(ProductCreateRequestDTO createRequestDTO);
 

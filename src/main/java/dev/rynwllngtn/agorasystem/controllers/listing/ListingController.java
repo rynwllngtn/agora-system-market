@@ -2,7 +2,6 @@ package dev.rynwllngtn.agorasystem.controllers.listing;
 
 import dev.rynwllngtn.agorasystem.dtos.listing.ListingCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.listing.ListingResponseDTO;
-import dev.rynwllngtn.agorasystem.entities.listing.Listing;
 import dev.rynwllngtn.agorasystem.services.listing.ListingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,19 @@ public class ListingController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ListingResponseDTO> findById(@PathVariable UUID id) {
-        Listing listing = listingService.findById(id);
-        return ResponseEntity.ok().body(new ListingResponseDTO(listing));
+        ListingResponseDTO responseDTO = listingService.getResponseById(id);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @PostMapping
     public ResponseEntity<ListingResponseDTO> insert(@RequestBody ListingCreateRequestDTO createRequestDTO) {
         ListingResponseDTO responseDTO = listingService.insert(createRequestDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(responseDTO.id()).toUri();
+        URI uri = ServletUriComponentsBuilder.
+                  fromCurrentRequest().
+                  path("/{id}").
+                  buildAndExpand(responseDTO.id()).
+                  toUri();
+
         return ResponseEntity.created(uri).body(responseDTO);
     }
 

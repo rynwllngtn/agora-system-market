@@ -11,7 +11,8 @@ public class SellerMapper {
     public SellerResponseDTO toResponseDTO(Seller seller) {
         return new SellerResponseDTO(seller.getId(),
                                      seller.getOwnerId(),
-                                     seller.getName());
+                                     seller.getName(),
+                                     seller.getStatus());
     }
 
     public Seller toEntity(SellerCreateRequestDTO createRequestDTO) {

@@ -1,14 +1,13 @@
 package dev.rynwllngtn.agorasystem.entities.seller;
 
+import dev.rynwllngtn.agorasystem.enums.seller.SellerStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "sellers")
@@ -25,9 +24,22 @@ public class Seller {
     @Column(nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SellerStatus status;
+
     public Seller(UUID ownerId, String name) {
         this.ownerId = ownerId;
         this.name = name;
+        this.status = SellerStatus.ACTIVE;
+    }
+
+    public void deactivate() {
+        status = SellerStatus.DEACTIVATED;
+    }
+
+    public void reactivate() {
+        status = SellerStatus.ACTIVE;
     }
 
 }

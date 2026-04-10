@@ -15,3 +15,5 @@ spring:
 
   flyway:
     enabled: true
+    default-schema: market
+    create-schemas: true

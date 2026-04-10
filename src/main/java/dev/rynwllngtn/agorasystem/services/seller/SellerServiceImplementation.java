@@ -25,8 +25,30 @@ public class SellerServiceImplementation implements SellerService {
     }
 
     @Override
+    public SellerResponseDTO getResponseById(UUID id) {
+        Optional<SellerResponseDTO> responseDTO = sellerRepository.getResponseById(id);
+        return responseDTO.get();
+    }
+
+    @Override
     public SellerResponseDTO insert(SellerCreateRequestDTO createRequestDTO) {
         Seller seller = sellerMapper.toEntity(createRequestDTO);
+        seller = sellerRepository.save(seller);
+        return sellerMapper.toResponseDTO(seller);
+    }
+
+    @Override
+    public SellerResponseDTO deactivate(UUID id) {
+        Seller seller = sellerRepository.getReferenceById(id);
+        seller.deactivate();
+        seller = sellerRepository.save(seller);
+        return sellerMapper.toResponseDTO(seller);
+    }
+
+    @Override
+    public SellerResponseDTO reactivate(UUID id) {
+        Seller seller = sellerRepository.getReferenceById(id);
+        seller.reactivate();
         seller = sellerRepository.save(seller);
         return sellerMapper.toResponseDTO(seller);
     }
