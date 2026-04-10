@@ -1,19 +1,22 @@
 package dev.rynwllngtn.agorasystem.services.seller;
 
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.seller.SellerResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.seller.Seller;
+import dev.rynwllngtn.agorasystem.mappers.seller.SellerMapper;
 import dev.rynwllngtn.agorasystem.repositories.seller.SellerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class SellerServiceImplementation implements SellerService {
 
-    @Autowired
-    private SellerRepository sellerRepository;
+    private final SellerRepository sellerRepository;
+    private final SellerMapper sellerMapper;
 
     @Override
     public Seller findById(UUID id) {
@@ -22,11 +25,10 @@ public class SellerServiceImplementation implements SellerService {
     }
 
     @Override
-    public Seller insert(SellerCreateRequestDTO createRequestDTO) {
-        Seller seller = new Seller(createRequestDTO.owner(),
-                                   createRequestDTO.name());
-
-        return sellerRepository.save(seller);
+    public SellerResponseDTO insert(SellerCreateRequestDTO createRequestDTO) {
+        Seller seller = sellerMapper.toEntity(createRequestDTO);
+        seller = sellerRepository.save(seller);
+        return sellerMapper.toResponseDTO(seller);
     }
 
 }

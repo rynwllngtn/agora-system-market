@@ -1,19 +1,22 @@
 package dev.rynwllngtn.agorasystem.services.product;
 
 import dev.rynwllngtn.agorasystem.dtos.product.ProductCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.product.ProductResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.product.Product;
+import dev.rynwllngtn.agorasystem.mappers.product.ProductMapper;
 import dev.rynwllngtn.agorasystem.repositories.product.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImplementation implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
     public Product findById(UUID id) {
@@ -22,11 +25,10 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public Product insert(ProductCreateRequestDTO createRequestDTO) {
-        Product product = new Product(createRequestDTO.name(),
-                                      createRequestDTO.description());
-
-        return productRepository.save(product);
+    public ProductResponseDTO insert(ProductCreateRequestDTO createRequestDTO) {
+        Product product = productMapper.toEntity(createRequestDTO);
+        product = productRepository.save(product);
+        return productMapper.toResponseDTO(product);
     }
 
 }

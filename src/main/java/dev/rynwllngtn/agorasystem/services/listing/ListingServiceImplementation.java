@@ -1,30 +1,28 @@
 package dev.rynwllngtn.agorasystem.services.listing;
 
 import dev.rynwllngtn.agorasystem.dtos.listing.ListingCreateRequestDTO;
+import dev.rynwllngtn.agorasystem.dtos.listing.ListingResponseDTO;
 import dev.rynwllngtn.agorasystem.entities.listing.Listing;
 import dev.rynwllngtn.agorasystem.entities.product.Product;
 import dev.rynwllngtn.agorasystem.entities.seller.Seller;
+import dev.rynwllngtn.agorasystem.mappers.listing.ListingMapper;
 import dev.rynwllngtn.agorasystem.repositories.listing.ListingRepository;
-import dev.rynwllngtn.agorasystem.repositories.seller.SellerRepository;
 import dev.rynwllngtn.agorasystem.services.product.ProductService;
 import dev.rynwllngtn.agorasystem.services.seller.SellerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @Service
 public class ListingServiceImplementation implements ListingService {
 
-    @Autowired
-    private ListingRepository listingRepository;
-
-    @Autowired
-    private SellerService sellerService;
-
-    @Autowired
-    private ProductService productService;
+    final private ListingRepository listingRepository;
+    final private SellerService sellerService;
+    final private ProductService productService;
+    final private ListingMapper listingMapper;
 
     @Override
     public Listing findById(UUID id) {
@@ -33,16 +31,12 @@ public class ListingServiceImplementation implements ListingService {
     }
 
     @Override
-    public Listing insert(ListingCreateRequestDTO createRequestDTO) {
+    public ListingResponseDTO insert(ListingCreateRequestDTO createRequestDTO) {
         Seller seller = sellerService.findById(createRequestDTO.sellerId());
         Product product = productService.findById(createRequestDTO.productId());
-        Listing listing = new Listing(seller,
-                                      product,
-                                      createRequestDTO.stock(),
-                                      createRequestDTO.price(),
-                                      createRequestDTO.status());
-
-        return listingRepository.save(listing);
+        Listing listing = listingMapper.toEntity(createRequestDTO, seller, product);
+        listing = listingRepository.save(listing);
+        return listingMapper.toResponseDTO(listing);
     }
 
 }

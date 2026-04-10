@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public record ListingResponseDTO(
+        UUID id,
         String seller,
         String product,
         int stock,
@@ -14,7 +15,8 @@ public record ListingResponseDTO(
         ListingStatus status
 ) {
     public ListingResponseDTO(Listing listing) {
-        this(listing.getSeller().getName(),
+        this(listing.getId(),
+             listing.getSeller().getName(),
              listing.getProduct().getName(),
              listing.getStock(),
              listing.getPrice(),
