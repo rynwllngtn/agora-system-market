@@ -47,4 +47,12 @@ public class Listing {
         this.status = status;
     }
 
+    public void open() {
+        status = ListingStatus.OPEN;
+    }
+
+    public void close() {
+        status = ListingStatus.CLOSED;
+    }
+
 }

@@ -36,4 +36,16 @@ public class ListingController {
         return ResponseEntity.created(uri).body(responseDTO);
     }
 
+    @PatchMapping(value = "/{id}/open")
+    public ResponseEntity<ListingResponseDTO> open(@PathVariable UUID id) {
+        ListingResponseDTO responseDTO = listingService.open(id);
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @PatchMapping(value = "/{id}/close")
+    public ResponseEntity<ListingResponseDTO> close(@PathVariable UUID id) {
+        ListingResponseDTO responseDTO = listingService.close(id);
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
 }

@@ -45,4 +45,20 @@ public class ListingServiceImplementation implements ListingService {
         return listingMapper.toResponseDTO(listing);
     }
 
+    @Override
+    public ListingResponseDTO open(UUID id) {
+        Listing listing = listingRepository.getReferenceById(id);
+        listing.open();
+        listing = listingRepository.save(listing);
+        return listingMapper.toResponseDTO(listing);
+    }
+
+    @Override
+    public ListingResponseDTO close(UUID id) {
+        Listing listing = listingRepository.getReferenceById(id);
+        listing.close();
+        listing = listingRepository.save(listing);
+        return listingMapper.toResponseDTO(listing);
+    }
+
 }

@@ -15,4 +15,7 @@ public interface ListingService {
 
     ListingResponseDTO insert(ListingCreateRequestDTO createRequestDTO);
 
+    ListingResponseDTO open(UUID id);
+    ListingResponseDTO close(UUID id);
+
 }
