@@ -1,5 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.listing;
 
+import dev.rynwllngtn.agorasystem.entities.AuditableEntity;
 import dev.rynwllngtn.agorasystem.entities.product.Product;
 import dev.rynwllngtn.agorasystem.entities.seller.Seller;
 import dev.rynwllngtn.agorasystem.enums.listing.ListingStatus;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "listings")
-public class Listing {
+public class Listing extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -1,0 +1,17 @@
+ALTER TABLE sellers
+    ADD COLUMN created_at TIMESTAMP NOT NULL,
+    ADD COLUMN created_by VARCHAR(255) NOT NULL,
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN updated_by VARCHAR(255);
+
+ALTER TABLE products
+    ADD COLUMN created_at TIMESTAMP NOT NULL,
+    ADD COLUMN created_by VARCHAR(255) NOT NULL,
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN updated_by VARCHAR(255);
+
+ALTER TABLE listings
+    ADD COLUMN created_at TIMESTAMP NOT NULL,
+    ADD COLUMN created_by VARCHAR(255) NOT NULL,
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN updated_by VARCHAR(255);

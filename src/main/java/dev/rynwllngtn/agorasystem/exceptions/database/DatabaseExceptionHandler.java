@@ -33,24 +33,4 @@ public class DatabaseExceptionHandler {
         return ResponseEntity.status(status).body(exception);
     }
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationError> methodArgumentNotValid(MethodArgumentNotValidException e,
-                                                                  HttpServletRequest request) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        Map<String, String> erros = new HashMap<>();
-
-        e.getBindingResult().getFieldErrors()
-                .forEach(erro -> {
-                    String field = erro.getField();
-                    String message = erro.getDefaultMessage();
-                    erros.put(field, message);});
-
-        ValidationError exception = new ValidationError(Instant.now(),
-                                                        status.value(),
-                                                        erros,
-                                                        request.getRequestURI());
-
-        return ResponseEntity.status(status).body(exception);
-    }
-
 }

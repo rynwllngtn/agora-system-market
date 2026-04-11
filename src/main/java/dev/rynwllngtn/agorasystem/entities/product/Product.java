@@ -1,5 +1,6 @@
 package dev.rynwllngtn.agorasystem.entities.product;
 
+import dev.rynwllngtn.agorasystem.entities.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
