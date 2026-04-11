@@ -42,7 +42,7 @@ public class SellerServiceImplementation implements SellerService {
 
     @Override
     public SellerResponseDTO deactivate(UUID id) {
-        Seller seller = sellerRepository.getReferenceById(id);
+        Seller seller = findById(id);
         seller.deactivate();
         seller = sellerRepository.save(seller);
         return sellerMapper.toResponseDTO(seller);
@@ -50,7 +50,7 @@ public class SellerServiceImplementation implements SellerService {
 
     @Override
     public SellerResponseDTO reactivate(UUID id) {
-        Seller seller = sellerRepository.getReferenceById(id);
+        Seller seller = findById(id);
         seller.reactivate();
         seller = sellerRepository.save(seller);
         return sellerMapper.toResponseDTO(seller);

@@ -4,6 +4,15 @@ Todas as mudanças notáveis na API do **Agora System** serão documentadas nest
 
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
+---
+
+## [Unreleased]
+
+### Added
+- Tratamento de exceções customizados para 
+
+---
+
 ## [0.1.0] - 2026-04-10
 
 ### Added

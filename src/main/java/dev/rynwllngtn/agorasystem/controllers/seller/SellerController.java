@@ -3,8 +3,10 @@ package dev.rynwllngtn.agorasystem.controllers.seller;
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.seller.SellerResponseDTO;
 import dev.rynwllngtn.agorasystem.services.seller.SellerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,7 +27,7 @@ public class SellerController {
     }
 
     @PostMapping
-    public ResponseEntity<SellerResponseDTO> insert(@RequestBody SellerCreateRequestDTO createRequestDTO) {
+    public ResponseEntity<SellerResponseDTO> insert(@RequestBody @Valid SellerCreateRequestDTO createRequestDTO) {
         SellerResponseDTO responseDTO = sellerService.insert(createRequestDTO);
         URI uri = ServletUriComponentsBuilder.
                   fromCurrentRequest().

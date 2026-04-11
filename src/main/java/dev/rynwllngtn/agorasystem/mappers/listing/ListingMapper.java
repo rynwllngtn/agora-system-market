@@ -23,8 +23,7 @@ public class ListingMapper {
         return new Listing(seller,
                            product,
                            createRequestDTO.stock(),
-                           createRequestDTO.price(),
-                           createRequestDTO.status());
+                           createRequestDTO.price());
     }
 
 }

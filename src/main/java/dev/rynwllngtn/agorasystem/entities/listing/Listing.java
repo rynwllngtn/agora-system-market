@@ -39,12 +39,12 @@ public class Listing {
     @Column(nullable = false)
     private ListingStatus status;
 
-    public Listing(Seller seller, Product product, int stock, BigDecimal price, ListingStatus status) {
+    public Listing(Seller seller, Product product, int stock, BigDecimal price) {
         this.seller = seller;
         this.product = product;
         this.stock = stock;
         this.price = price;
-        this.status = status;
+        status = ListingStatus.OPEN;
     }
 
     public void open() {

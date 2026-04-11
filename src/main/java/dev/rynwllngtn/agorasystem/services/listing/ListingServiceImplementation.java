@@ -20,10 +20,10 @@ import java.util.UUID;
 @Service
 public class ListingServiceImplementation implements ListingService {
 
-    final private ListingRepository listingRepository;
-    final private SellerService sellerService;
-    final private ProductService productService;
-    final private ListingMapper listingMapper;
+    private final ListingRepository listingRepository;
+    private final SellerService sellerService;
+    private final ProductService productService;
+    private final ListingMapper listingMapper;
 
     @Override
     public Listing findById(UUID id) {
@@ -50,7 +50,7 @@ public class ListingServiceImplementation implements ListingService {
 
     @Override
     public ListingResponseDTO open(UUID id) {
-        Listing listing = listingRepository.getReferenceById(id);
+        Listing listing = findById(id);
         listing.open();
         listing = listingRepository.save(listing);
         return listingMapper.toResponseDTO(listing);
@@ -58,7 +58,7 @@ public class ListingServiceImplementation implements ListingService {
 
     @Override
     public ListingResponseDTO close(UUID id) {
-        Listing listing = listingRepository.getReferenceById(id);
+        Listing listing = findById(id);
         listing.close();
         listing = listingRepository.save(listing);
         return listingMapper.toResponseDTO(listing);

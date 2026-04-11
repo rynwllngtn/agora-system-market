@@ -3,6 +3,7 @@ package dev.rynwllngtn.agorasystem.controllers.listing;
 import dev.rynwllngtn.agorasystem.dtos.listing.ListingCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.listing.ListingResponseDTO;
 import dev.rynwllngtn.agorasystem.services.listing.ListingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @RequestMapping(value = "/listings")
 public class ListingController {
 
-    public final ListingService listingService;
+    private final ListingService listingService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ListingResponseDTO> findById(@PathVariable UUID id) {
@@ -25,7 +26,7 @@ public class ListingController {
     }
 
     @PostMapping
-    public ResponseEntity<ListingResponseDTO> insert(@RequestBody ListingCreateRequestDTO createRequestDTO) {
+    public ResponseEntity<ListingResponseDTO> insert(@Valid @RequestBody ListingCreateRequestDTO createRequestDTO) {
         ListingResponseDTO responseDTO = listingService.insert(createRequestDTO);
         URI uri = ServletUriComponentsBuilder.
                   fromCurrentRequest().

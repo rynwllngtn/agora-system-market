@@ -3,6 +3,7 @@ package dev.rynwllngtn.agorasystem.controllers.product;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductResponseDTO;
 import dev.rynwllngtn.agorasystem.services.product.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> insert(@RequestBody ProductCreateRequestDTO createRequestDTO) {
+    public ResponseEntity<ProductResponseDTO> insert(@Valid @RequestBody ProductCreateRequestDTO createRequestDTO) {
         ProductResponseDTO responseDTO = productService.insert(createRequestDTO);
         URI uri = ServletUriComponentsBuilder.
                   fromCurrentRequest().
