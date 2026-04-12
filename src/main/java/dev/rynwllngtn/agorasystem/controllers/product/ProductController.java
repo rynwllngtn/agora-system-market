@@ -3,6 +3,8 @@ package dev.rynwllngtn.agorasystem.controllers.product;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductCreateRequestDTO;
 import dev.rynwllngtn.agorasystem.dtos.product.ProductResponseDTO;
 import dev.rynwllngtn.agorasystem.services.product.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +17,25 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/products")
+@Tag(
+        name = "Endpoints CRUD REST API para Product"
+)
 public class ProductController {
 
     private final ProductService productService;
 
+    @Operation(
+            summary = "Rota para leitura de Comment pelo ID"
+    )
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductResponseDTO> findById(@PathVariable UUID id) {
         ProductResponseDTO responseDTO = productService.getResponseById(id);
         return ResponseEntity.ok().body(responseDTO);
     }
 
+    @Operation(
+            summary = "Rota para criação de novo Product"
+    )
     @PostMapping
     public ResponseEntity<ProductResponseDTO> insert(@Valid @RequestBody ProductCreateRequestDTO createRequestDTO) {
         ProductResponseDTO responseDTO = productService.insert(createRequestDTO);
