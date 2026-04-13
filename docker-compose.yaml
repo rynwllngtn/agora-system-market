@@ -1,0 +1,10 @@
+services:
+  market:
+    image: rynwllngtn/agoramarket:s1
+    container_name: agoramarket
+    ports:
+      - 8080:8080
+    deploy:
+      resources:
+        limits:
+          memory: 700m

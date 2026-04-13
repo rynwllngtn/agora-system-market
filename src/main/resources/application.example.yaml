@@ -1,6 +1,6 @@
 spring:
   application:
-    name: agora-system-market
+    name: agora-market
 
   datasource:
     url: [ YOUR-DATABASE-URL ]

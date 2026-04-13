@@ -12,8 +12,8 @@
 	</parent>
 
 	<groupId>dev.rynwllngtn</groupId>
-	<artifactId>agorasystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>agoramarket</artifactId>
+	<version>0.0.1</version>
 
 	<properties>
 		<java.version>25</java.version>
