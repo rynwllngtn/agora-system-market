@@ -1,5 +1,22 @@
+FROM maven:3.9.14-eclipse-temurin-25-alpine AS builder
+
+WORKDIR /app
+
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+
+
 FROM eclipse-temurin:25-jre
 
-COPY target/agoramarket-0.0.1.jar agoramarket-0.0.1.jar
+WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "agoramarket-0.0.1.jar"]
+COPY --from=builder /app/target/*.jar agora-market-api.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "agora-market-api.jar"]
